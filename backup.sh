@@ -42,4 +42,10 @@ if [[ $is_botw_copied = true  && $is_totk_copied = true ]]; then
 	mv temp_file BACKUP-HISTORY.md
 
 	eval "$git_commands"
+	if [[ $? -eq 0 ]]; then
+		echo "Uploading to Github is succesful"
+		echo "BACKUP DONE"
+	else
+		echo "BACKUP FAILED"
+	fi
 fi
