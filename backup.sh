@@ -6,7 +6,7 @@ is_botw_copied=false
 is_totk_copied=false
 is_git_succesful=false
 
-backuptime=date +\"%Y-%m-%d %H:%M:%S"
+backuptime=$(date +"%Y-%m-%d %H:%M:%S")
 
 git_commands="
 git add . 
@@ -37,7 +37,7 @@ if [[ $is_botw_copied = true  && $is_totk_copied = true ]]; then
 	echo "Uploading files to github"
 
 	#update the backup-history
-	date +"%Y-%m-%d %H:%M:%S" > temp_file
+	backuptime > temp_file
 	cat BACKUP-HISTORY.md >> temp_file
 	mv temp_file BACKUP-HISTORY.md
 
