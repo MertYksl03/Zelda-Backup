@@ -44,7 +44,7 @@ if [[ $is_botw_copied = true  && $is_totk_copied = true ]]; then
 	eval "$git_commands"
 	if [[ $? -eq 0 ]]; then
 		echo "Uploading to Github is succesful"
-		echo "BACKUP DONE"
+		echo "\nBACKUP DONE"
 	else
 		echo "BACKUP FAILED"
 	fi
