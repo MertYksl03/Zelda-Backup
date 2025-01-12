@@ -44,7 +44,7 @@ if [[ $is_botw_copied = true  && $is_totk_copied = true ]]; then
 
 	# Write the content to the temporary file
 	{
-	    echo "-- $backuptime -- '\n'" &&
+	    echo "-- $backuptime -- $'\n'" &&
 	    cat README.md
 	} > "$temp_file" || { echo "Failed to prepare content"; rm "$temp_file"; exit 1; }
 
