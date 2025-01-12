@@ -37,10 +37,20 @@ if [[ $is_botw_copied = true  && $is_totk_copied = true ]]; then
 	echo "Uploading files to github"
 
 	#update the backup-history
-	"LAST BACKUP TIME :" > temp_file
-	backuptime >> temp_file
-	cat README.md >> temp_file
-	mv temp_file README.md
+	 Create a temporary file safely
+	temp_file=$(mktemp) || { echo "Failed to create temporary file"; exit 1; }
+
+	# Write the content to the temporary file
+	{
+	    echo "LAST BACKUP TIME : $backuptime" &&
+	    cat README.md
+	} > "$temp_file" || { echo "Failed to prepare content"; rm "$temp_file"; exit 1; }
+
+	# Safely update README.md
+	cat "$temp_file" > README.md || { echo "Failed to update README.md"; rm "$temp_file"; exit 1; }
+
+	# Clean up temporary file
+	rm "$temp_file"
 
 	eval "$git_commands"
 	if [[ $? -eq 0 ]]; then
