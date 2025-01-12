@@ -37,9 +37,10 @@ if [[ $is_botw_copied = true  && $is_totk_copied = true ]]; then
 	echo "Uploading files to github"
 
 	#update the backup-history
-	backuptime > temp_file
-	cat BACKUP-HISTORY.md >> temp_file
-	mv temp_file BACKUP-HISTORY.md
+	"LAST BACKUP TIME :" > temp_file
+	backuptime >> temp_file
+	cat README.md >> temp_file
+	mv temp_file README.md
 
 	eval "$git_commands"
 	if [[ $? -eq 0 ]]; then
