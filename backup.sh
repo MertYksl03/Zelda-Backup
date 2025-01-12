@@ -6,6 +6,14 @@ is_botw_copied=false
 is_totk_copied=false
 is_git_succesful=false
 
+backuptime=date +\"%Y-%m-%d %H:%M:%S"
+
+git_commands="
+git add . 
+git commit -m \"$backuptime\"
+git push
+"
+
 echo "Copying Breath of the Wild  save files"
 	cp -r /home/mert/.var/app/org.ryujinx.Ryujinx/config/Ryujinx/bis/user/save/0000000000000002 Breath-of-the-Wild
 	if [[ $? -eq 0 ]]; then
@@ -25,9 +33,13 @@ echo "Copying Tears of the Kingdom save files"
 
 if [[ $is_botw_copied = true  && $is_totk_copied = true ]]; then
 	echo "Both games copied succesfully"
+	echo "Backups Created"
 	echo "Uploading files to github"
-	#update the
+
+	#update the backup-history
 	date +"%Y-%m-%d %H:%M:%S" > temp_file
 	cat BACKUP-HISTORY.md >> temp_file
 	mv temp_file BACKUP-HISTORY.md
+
+	eval "$git_commands"
 fi
