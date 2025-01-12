@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd ~/scripts/zelda-backup
+
 echo "Backup starting..."
 
 is_botw_copied=false
@@ -60,3 +62,5 @@ if [[ $is_botw_copied = true  && $is_totk_copied = true ]]; then
 		echo "BACKUP FAILED"
 	fi
 fi
+
+cd 
