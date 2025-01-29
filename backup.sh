@@ -16,7 +16,7 @@ git add .
 git commit -m \"$backuptime\"
 git push
 "
-
+mkdir Temp
 echo "Copying Breath of the Wild save files..."
 if [ -d "/home/mert/.var/app/org.ryujinx.Ryujinx/config/Ryujinx/bis/user/save/0000000000000002" ]; then
     cp -r /home/mert/.var/app/org.ryujinx.Ryujinx/config/Ryujinx/bis/user/save/0000000000000002 Temp/Breath-of-the-Wild
@@ -80,7 +80,7 @@ if [ "$is_local_backup_created" = true ]; then
     rm "$temp_file"
 
     # Run git commands
-    # eval "$git_commands" || { echo "Git commands failed"; exit 1; }
+    eval "$git_commands" || { echo "Git commands failed"; exit 1; }
 
     echo "Uploading to Github is successful"
     echo "BACKUP DONE"
