@@ -11,6 +11,11 @@ is_local_backup_created=false
 
 backuptime=$(date +"%Y-%m-%d %H:%M:%S")
 
+# COLORS 
+RED="\e[31m"
+GREEN="\e[32m"
+ENDCOLOR="\e[0m"
+
 git_commands="
 git add .
 git commit -m \"$backuptime\"
@@ -23,10 +28,10 @@ if [ -d "/home/mert/.var/app/org.ryujinx.Ryujinx/config/Ryujinx/bis/user/save/00
     if [[ $? -eq 0 ]]; then
         is_botw_copied=true
     else
-        echo "Failed to copy BOTW"
+        echo -e "${RED}Failed to copy BOTW${ENDCOLOR}"
     fi
 else
-    echo "Source directory for BOTW does not exist"
+    echo -e "${RED}Source directory for BOTW does not exist${ENDCOLOR}"
     exit 1
 fi
 
@@ -36,10 +41,10 @@ if [ -d "/home/mert/.var/app/org.ryujinx.Ryujinx/config/Ryujinx/bis/user/save/00
     if [[ $? -eq 0 ]]; then
         is_totk_copied=true
     else
-        echo "Failed to copy TOTK"
+        echo -e "${RED}Failed to copy TOTK${ENDCOLOR}"
     fi
 else
-    echo "Source directory for TOTK does not exist"
+    echo -e "${RED}Source directory for TOTK does not exist${ENDCOLOR}"
     exit 1
 fi
 
@@ -50,18 +55,18 @@ if [[ $is_botw_copied = true && $is_totk_copied = true ]]; then
     cp -r Temp/* .
     # Check if the copying is ok  
     if [[ $? -eq 0 ]]; then
-        echo "Both games copied successfully"
+        echo -e "${GREEN}Both games copied successfully${ENDCOLOR}"
         is_local_backup_created=true
-        echo "Deleting the Temp"
+        echo "Deleting the Temp..."
         rm -rf Temp
     else
-        echo "ERROR: Can't create local backup (Couldn't copy files from the temp folder)"
+        echo -e "${RED}ERROR: Can't create local backup (Couldn't copy files from the temp folder)${ENDCOLOR}"
         exit 1
     fi
 fi
 
 if [ "$is_local_backup_created" = true ]; then
-    echo "Uploading files to github"
+    echo "Uploading files to github..."
 
     # Update the backup-history
     temp_file=$(mktemp) || { echo "Failed to create temporary file"; exit 1; }
@@ -80,11 +85,13 @@ if [ "$is_local_backup_created" = true ]; then
     rm "$temp_file"
 
     # Run git commands
-    eval "$git_commands" || { echo "Git commands failed"; exit 1; }
+    eval "$git_commands" || { echo -e "${RED}Git commands failed${ENDCOLOR}"; exit 1; }
 
-    echo "Uploading to Github is successful"
-    echo "BACKUP DONE"
+    echo -e "${GREEN}Uploading to Github is successful${ENDCOLOR}"
+    echo -e "${GREEN}BACKUP DONE${ENDCOLOR}"
 else
-    echo "Local backup was not created. Exiting."
+    echo -e "${RED}Local backup was not created. Exiting.${ENDCOLOR}"
     exit 1
 fi
+
+cd 
