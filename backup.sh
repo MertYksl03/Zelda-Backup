@@ -56,6 +56,7 @@ if [[ $is_botw_copied = true && $is_totk_copied = true ]]; then
     # Check if the copying is ok  
     if [[ $? -eq 0 ]]; then
         echo -e "${GREEN}Both games copied successfully${ENDCOLOR}"
+        echo -e "${GREEN}LOCAL BACKUP CREATED${ENDCOLOR}"
         is_local_backup_created=true
         echo "Deleting the Temp..."
         rm -rf Temp
